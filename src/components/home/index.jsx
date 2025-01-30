@@ -1,13 +1,22 @@
+import {useEffect, useState} from "react";
 import {useAxios} from "../../hooks/useAxios";
 import {Info} from "./info";
 
 export const HomeComponent = () => {
-	// const axios = useAxios();
-	// axios({
-	// 	url: `/weather?q=fargona`,
-	// })
-	// 	.then((data) => console.log(data))
-	// 	.catch((error) => console.log(error));
+	const [data, setData] = useState();
+	const axios = useAxios();
+	useEffect(() => {
+		axios({
+			url: `/weather?q=fargona`,
+		})
+			.then((data) => {
+				setData(data.data);
+			})
+			.catch((error) => console.log(error));
+	}, []);
+
+	console.log(data);
+
 	return (
 		<section className="bg-[url('/src/assets/imgs/bg-weather.png')] bg-no-repeat bg-center bg-cover w-screen h-screen">
 			<div className="flex items-start justify-between gap-4">
@@ -18,7 +27,7 @@ export const HomeComponent = () => {
 					<div className="text-white flex items-end gap-3 mt-[23em]">
 						<h1 className="text-[7.5em]">16°</h1>
 						<div className="mb-9">
-							<p className="text-[2.5em]">London</p>
+							<p className="text-[2.5em]">{data?.name}</p>
 							<p className="text-[1.1em]">06:09 - Monday, 9 Sep ‘23</p>
 						</div>
 						<img
@@ -28,7 +37,7 @@ export const HomeComponent = () => {
 						/>
 					</div>
 				</div>
-				<Info />
+				<Info {...data} />
 			</div>
 		</section>
 	);
