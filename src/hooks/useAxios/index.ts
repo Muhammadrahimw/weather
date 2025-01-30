@@ -4,7 +4,7 @@ export const useAxios = () => {
 	const response = (props) => {
 		let {url, method = "GET", body, headers, params} = props;
 		return axios({
-			url: `https://api.openweathermap.org/data/2.5${url}`,
+			url: `https://api.openweathermap.org/data${url}`,
 			method,
 			data: body,
 			headers: {
