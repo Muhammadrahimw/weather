@@ -3,7 +3,7 @@ import {useAxios} from "../../hooks/useAxios";
 
 export const HomeComponent = () => {
 	const [data, setData] = useState();
-	const [address, setAddress] = useState("Fergana");
+	const [address, setAddress] = useState("Kokand");
 	const searchRef = useRef();
 	const axios = useAxios();
 	const searchFunc = () => {
@@ -23,6 +23,8 @@ export const HomeComponent = () => {
 			.catch((error) => console.log(error));
 	}, [address]);
 
+	console.log(data);
+
 	return (
 		<section className="bg-[url('/src/assets/imgs/bg-weather.png')] bg-no-repeat bg-center bg-cover w-screen h-screen">
 			<div className="flex items-start justify-between gap-4">
@@ -31,7 +33,9 @@ export const HomeComponent = () => {
 						<img src="/src/assets/imgs/logo.svg" alt="logo" />
 					</div>
 					<div className="text-white flex items-end gap-3 mt-[23em]">
-						<h1 className="text-[7.5em]">16°</h1>
+						<h1 className="text-[7.5em]">
+							{Math.round(data?.main?.feels_like - 273.15)}°
+						</h1>
 						<div className="mb-9">
 							<p className="text-[2.5em]">{data?.name}</p>
 							<p className="text-[1.1em]">06:09 - Monday, 9 Sep ‘23</p>
@@ -66,14 +70,14 @@ export const HomeComponent = () => {
 						<div className="flex items-center justify-between gap-4 text-xl mt-6">
 							<p>Temp max</p>
 							<div className="flex items-center gap-5">
-								<p>{data?.main?.temp_max} °</p>
+								<p>{Math.round(data?.main?.temp_max - 273.15)} °</p>
 								<img src="/src/assets/imgs/Vector.svg" alt="" />
 							</div>
 						</div>
 						<div className="flex items-center justify-between gap-4 text-xl mt-6">
 							<p>Temp min</p>
 							<div className="flex items-center gap-5">
-								<p>{data?.main?.temp_min} °</p>
+								<p>{Math.round(data?.main?.temp_min - 273.15)} °</p>
 								<img src="/src/assets/imgs/Vector-1.svg" alt="" />
 							</div>
 						</div>
